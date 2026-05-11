@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>서남권 교육 인프라 인사이트 대시보드</title>
+    <title>서남권 교육 인프라 데이터 시각화</title>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Lucide Icons CDN -->
@@ -19,7 +19,6 @@
             --text-main: #4A4A4A;
             --text-muted: #7A7A7A;
             --warning-red: #FFB3B3;
-            --safe-blue: #B3CEE5;
         }
 
         body {
@@ -27,7 +26,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
             line-height: 1.6;
         }
 
@@ -38,9 +37,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 2px solid var(--primary-pink);
-            padding-bottom: 20px;
+            margin-bottom: 50px;
         }
 
         header h1 {
@@ -48,27 +45,30 @@
             font-size: 2.2rem;
             margin-bottom: 10px;
             color: var(--text-main);
+            letter-spacing: -0.5px;
         }
 
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+        header .divider {
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-pink);
+            margin: 0 auto;
+            border-radius: 2px;
         }
 
-        /* Dashboard Grid Layout */
+        /* Dashboard Grid */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 25px;
-            margin-bottom: 40px;
         }
 
         .card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0,0.05);
-            transition: transform 0.2s;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
         }
 
         .card:hover {
@@ -80,26 +80,27 @@
         }
 
         .card-title {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            color: var(--text-main);
         }
 
         /* Status Cards Style */
         .museum-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px;
         }
 
         .status-pill {
-            padding: 15px;
-            border-radius: 12px;
+            padding: 20px 15px;
+            border-radius: 16px;
             text-align: center;
-            border: 1px solid #eee;
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
         .status-pill.warning {
@@ -108,29 +109,13 @@
         }
 
         .status-pill.normal {
-            background-color: var(--primary-pink);
-            opacity: 0.7;
+            background-color: var(--bg-color);
+            border: 1px solid var(--primary-pink);
         }
 
-        .status-pill h4 { margin: 5px 0; font-size: 1rem; }
-        .status-pill span { font-size: 0.85rem; font-weight: 500; }
+        .status-pill h4 { margin: 8px 0; font-size: 1.2rem; font-weight: 700; }
+        .status-pill span { font-size: 0.85rem; font-weight: 500; opacity: 0.8; }
 
-        /* Summary Section */
-        .summary-box {
-            background-color: #fff;
-            border-left: 6px solid var(--primary-pink);
-            padding: 30px;
-            border-radius: 0 16px 16px 0;
-            margin-top: 40px;
-        }
-
-        .summary-box h2 {
-            margin-top: 0;
-            font-size: 1.5rem;
-            color: var(--accent-pink);
-        }
-
-        /* Responsive */
         @media (max-width: 900px) {
             .dashboard-grid { grid-template-columns: 1fr; }
             .card-full { grid-column: span 1; }
@@ -141,8 +126,8 @@
 
 <div class="container">
     <header>
-        <h1>서남권 교육 인프라 인사이트 대시보드</h1>
-        <p>사교육 밀집도와 공공 교육 시설의 상관관계 분석</p>
+        <h1>서남권 교육 인프라 분석현황</h1>
+        <div class="divider"></div>
     </header>
 
     <div class="dashboard-grid">
@@ -168,30 +153,14 @@
                 <i data-lucide="landmark"></i> 지역별 박물관/미술관 인프라 현황
             </div>
             <div class="museum-grid" id="museumGrid">
-                <!-- JS에서 동적으로 생성됨 -->
+                <!-- JS dynamic render -->
             </div>
         </div>
-    </div>
-
-    <!-- Summary Section -->
-    <div class="summary-box">
-        <h2><i data-lucide="lightbulb" style="vertical-align: middle;"></i> 교육학적 제언 및 분석 요약</h2>
-        <p>
-            본 데이터 분석 결과, 서울 서남권 내에서 <strong>양천구</strong>는 압도적인 사교육 인프라(2,103개 학원)를 보유하고 있으나, 
-            인구 대비 공공 박물관 인프라는 부재한 것으로 나타났습니다. 반면 <strong>강서구</strong>는 높은 사교육 열기와 더불어 가장 활발한 
-            도서관 이용률 및 박물관 인프라를 동시에 갖추고 있어 대조적인 모습을 보입니다.
-        </p>
-        <p>
-            <strong>금천구</strong>와 <strong>양천구</strong>에서 공통적으로 발견된 박물관 인프라 결핍 현상은 지역 간 교육 문화 향유 기회의 격차를 시사합니다. 
-            단순히 사교육 억제 정책을 넘어, 공공 도서관 및 박물관과 같은 '공적 교육 자본'을 전략적으로 배치하여 사교육 의존도를 상쇄하고 
-            보편적 교육 복지를 실현하려는 정책적 노력이 필요합니다.
-        </p>
     </div>
 </div>
 
 <script>
-    // 1. 데이터 정의 (SQLite 분석 결과값)
-    // 실제 데이터 업데이트 시 이 배열의 객체 값만 수정하면 대시보드에 즉시 반영됩니다.
+    // [Data Source] SQLite 분석 결과
     const eduData = [
         { name: "강서구", academies: 1381, libraryUsers: 234216, population: 563058, museums: 4, hasMuseum: "있음" },
         { name: "관악구", academies: 727, libraryUsers: 69033, population: 481956, museums: 3, hasMuseum: "있음" },
@@ -202,10 +171,9 @@
         { name: "영등포구", academies: 868, libraryUsers: 63209, population: 374794, museums: 3, hasMuseum: "있음" }
     ];
 
-    // Lucide 아이콘 초기화
     lucide.createIcons();
 
-    // Chart 1: 학원 수 막대 차트 (Bar Chart)
+    // Chart 1: Bar Chart
     const ctx1 = document.getElementById('academyChart').getContext('2d');
     new Chart(ctx1, {
         type: 'bar',
@@ -214,7 +182,6 @@
             datasets: [{
                 label: '학원 수',
                 data: eduData.map(d => d.academies),
-                // 양천구(학원수 1위)일 경우 더 짙은 색으로 강조
                 backgroundColor: eduData.map(d => d.name === '양천구' ? '#E5A9A9' : '#F4C2C2'),
                 borderRadius: 8
             }]
@@ -222,23 +189,22 @@
         options: {
             responsive: true,
             plugins: {
-                legend: { display: false },
-                tooltip: { backgroundColor: 'rgba(0,0,0,0.7)' }
+                legend: { display: false }
             },
             scales: {
-                y: { beginAtZero: true, grid: { display: false } },
+                y: { beginAtZero: true, grid: { color: '#f0f0f0' } },
                 x: { grid: { display: false } }
             }
         }
     });
 
-    // Chart 2: 상관관계 산점도 (Scatter Plot)
+    // Chart 2: Scatter Plot
     const ctx2 = document.getElementById('scatterChart').getContext('2d');
     new Chart(ctx2, {
         type: 'scatter',
         data: {
             datasets: [{
-                label: '구별 데이터',
+                label: '자치구별 데이터',
                 data: eduData.map(d => ({ x: d.academies, y: d.libraryUsers, label: d.name })),
                 backgroundColor: '#E5A9A9',
                 pointRadius: 8,
@@ -252,19 +218,19 @@
                     callbacks: {
                         label: (context) => {
                             const point = context.raw;
-                            return `${point.label}: 학원(${point.x}개), 도서관 이용(${point.y.toLocaleString()}명)`;
+                            return `${point.label}: 학원(${point.x}개), 도서관(${point.y.toLocaleString()}명)`;
                         }
                     }
                 }
             },
             scales: {
-                x: { title: { display: true, text: '학원 수' } },
-                y: { title: { display: true, text: '도서관 이용객 수' } }
+                x: { title: { display: true, text: '학원 수' }, grid: { color: '#f0f0f0' } },
+                y: { title: { display: true, text: '도서관 이용객' }, grid: { color: '#f0f0f0' } }
             }
         }
     });
 
-    // Section 3: 박물관 상태 카드 렌더링
+    // Section 3: Status Cards
     const museumGrid = document.getElementById('museumGrid');
     eduData.forEach(d => {
         const div = document.createElement('div');
